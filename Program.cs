@@ -8,6 +8,7 @@ namespace aoptest
         {
             var decoratedAPI = LoggerDecorator<IHttpApi>.Create(new HttpApi());
             decoratedAPI.Get("https://www.google.com");
+            decoratedAPI.Post("https://www.google.com", new {ProductID = "A123456", ProductName = "Test"});
         }
     }
 }

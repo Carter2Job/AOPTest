@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Text.Json;
 
 namespace aoptest
 {
@@ -45,17 +46,17 @@ namespace aoptest
 
         private void LogException(Exception exception, MethodInfo methodInfo = null)
         {
-            nlogger.Info($"Class {_decorated.GetType().FullName}, Method {methodInfo.Name} threw exception:\n{exception}");
+            nlogger.Info($"LogException: Class {_decorated.GetType().FullName}, Method {methodInfo.Name} throw exception:\n{exception}");
         }
 
         private void LogAfter(MethodInfo methodInfo, object[] args, object result)
         {
-            nlogger.Info($"Class {_decorated.GetType().FullName}, Method {methodInfo.Name} executed, Output: {result}");
+            nlogger.Info($@"Executing LogAfter : Class: {_decorated.GetType().FullName}, Method {methodInfo.Name}, Args: {JsonSerializer.Serialize(args)}, Result: {JsonSerializer.Serialize(result)}");
         }
 
         private void LogBefore(MethodInfo methodInfo, object[] args)
         {
-            nlogger.Info($"Class {_decorated.GetType().FullName}, Method {methodInfo.Name} is executing");
+            nlogger.Info($@"Executing LogBefore: Class: { methodInfo.GetType().FullName}, Method :{methodInfo.Name}, Args: {JsonSerializer.Serialize(args)}");
         }
     }
 }
